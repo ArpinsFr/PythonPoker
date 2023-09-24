@@ -38,7 +38,17 @@ Listemains=[M1,M2,M3,M4,M5,M6,M7,M8,M9]
 Cartes=ListeCartes.copy()
 Joueurs={}
 
-nbj=int(input("Nombre de joueurs ? "))
+
+Ok=False
+while not Ok :
+    nbj=input("Nombre de joueurs ? ")
+    try:
+        nbj=int(nbj)
+    except:
+        print("Entrer un nombre compris entre 2 et 9")
+    else:
+        Ok=True
+
 print()
 
 nbjok=False
@@ -87,5 +97,9 @@ for i in range(len(Listemains)):
     Listemains[i].append(Joueurs[templist[i]][0])
     Listemains[i].append(Joueurs[templist[i]][1])
     print(i+1,":",Listemains[i])
-    
-print(fonctions.quinte(M1))
+
+for i in range (nbj):
+    print("\n","JOUEUR",i+1,"\n")
+    print(Listemains[i])
+    print(fonctions.quinte(Listemains[i]))
+    print(fonctions.check(Listemains[i]))
