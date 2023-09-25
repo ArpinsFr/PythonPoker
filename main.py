@@ -54,15 +54,11 @@ print()
 nbjok=False
 listtemp=list(DJoueurs.keys())                              #Initialise le nombre de joueurs
 while not nbjok:                         #tant qu'il est entre 2 et 9
-    if nbj>1 and nbj <9:
+    if nbj>1 and nbj <=9:
         for i in range(nbj):
             Joueurs[listtemp[i]]=DJoueurs[listtemp[i]]
         Listemains=Listemains[:nbj]
         nbjok=True
-    elif nbj==9:
-        nbjok=True
-        for i in range(nbj):
-            Joueurs[listtemp[i]]=DJoueurs[listtemp[i]]
     else:
         print("Entre deux joueurs minimum et 9 joueurs maximum requis")
         nbj=int(input("Nombre de joueurs ?"))
@@ -82,7 +78,6 @@ print()
 F1 = Cartes.pop(randint(0,len(Cartes)-1)) # Oh mais c'est gênant ! Quoicouflop
 F2 = Cartes.pop(randint(0,len(Cartes)-1))
 F3 = Cartes.pop(randint(0,len(Cartes)-1))
-
 
 #On est censé mettre un truc ici pour les mises
 

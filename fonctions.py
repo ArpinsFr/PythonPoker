@@ -37,55 +37,26 @@ def flush(main):                        #Vérifie l'existence d'une flush
 
 
 
-def quinte(main):                       #Vérifie l'existence d'une quinte / quinte flush
-    l_ind=[]
+def quinte(main):                       #Vérifie l'existence d'une quinte / ( quinte flush marche pas encore )
+    Quinte=False
     main2=numero(main)
-    for i in range(7):
-        v1=main2[i]
-        l_ind.append(i)
-        for j in range(7):
-            if main2[j]==v1+1:
-                l_ind.append(j)
-                v1+=1
-                for i in range(7):
-                    if main2[j]==v1+1:
-                        l_ind.append(j)
-                        v1+=1
-                        for i in range(7):
-                            if main2[j]==v1+1:
-                                l_ind.append(j)
-                                v1+=1
-                                for i in range(7):
-                                    if v1==13:
-                                        if main2[j]==1:
-                                            l_ind.append(j)
-                                            for i in l_ind:
-                                                l_val.append(main[i])
-                                                flush=flush(l_val)
-                                                if flush:
-                                                    return("Quinte Flush")
-                                                else : 
-                                                    return("Quinte")
-                                    elif main2[j]==v1+1:
-                                        l_ind.append(j)
-                                        for i in l_ind:
-                                            l_val.append(main[i])
-                                            flush=flush(l_val)
-                                            if flush:
-                                                return("Quinte Flush")
-                                            else : 
-                                                return("Quinte")
-                                        else:
-                                            l_ind=[]
-                            else:
-                                l_ind=[]
-                    else:
-                        l_ind=[]
+    main2.sort()
+    
+    main3=[]
+    dbl1=0
+    dbl2=0
+    for i in main2:
+        if i in main3 :
+            if dbl1!=0:
+                dbl2=i
             else:
-                l_ind=[]
-    return False
-
-
+                dbl1=i
+        else :
+            main3.append(i)
+    print(main3)
+    if main3[1]==main3[0]+1 and main3[2]==main3[0]+2 and main3[3]==main3[0]+3 and main3[4]==main3[0]+4:
+        Quinte=True
+    return(Quinte)
 
 
 def check(main):                            #Fait en gros tout le reste 
@@ -166,6 +137,7 @@ def check(main):                            #Fait en gros tout le reste
                         CarteH2 = main[2]
                         CarteH3 = main[3]
                         CarteH4 = main[4]
+    """
     if Valeur == 13:
         Carte1 = "Roi"
     elif Valeur == 12:
@@ -186,6 +158,9 @@ def check(main):                            #Fait en gros tout le reste
         Carte2 = "As"
     else:
         Carte2 = Valeur2
+    """
+    Carte1=Valeur
+    Carte2=Valeur2
     if Carré == True:
         #print( "Carré de",Carte1)
         #print(CarteH)
