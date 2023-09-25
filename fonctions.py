@@ -16,7 +16,7 @@ def numero(main):
     return(main2)
 
 
-def flush(main):
+def flush(main):                        #Vérifie l'existence d'une flush
     H=0
     D=0
     S=0
@@ -34,7 +34,10 @@ def flush(main):
         return True
     return False
 
-def quinte(main):
+
+
+
+def quinte(main):                       #Vérifie l'existence d'une quinte / quinte flush
     l_ind=[]
     main2=numero(main)
     for i in range(7):
@@ -85,7 +88,7 @@ def quinte(main):
 
 
 
-def check(main):
+def check(main):                            #Fait en gros tout le reste 
     main=numero(main)
     main.sort()
     main.reverse()
@@ -184,21 +187,26 @@ def check(main):
     else:
         Carte2 = Valeur2
     if Carré == True:
-        print( "Carré de",Carte1)
-        print(CarteH)
+        #print( "Carré de",Carte1)
+        #print(CarteH)
+        return("Carre",Carte1,CarteH)
     elif Full == True:
-        print("Full aux",Carte1,"par les",Carte2)
+        #print("Full aux",Carte1,"par les",Carte2)
+        return("Full",Carte1,Carte2)
     elif Brelan == True:
-        print("Brelan de",Carte1)
-        print(CarteH,CarteH2)
+        #print("Brelan de",Carte1)
+        #print(CarteH,CarteH2)
+        return("Brelan",Carte1,CarteH,CarteH2)
     elif Paire==2:
-        print("Double paire de",Carte1,"et",Carte2)
-        print(CarteH)
+        #print("Double paire de",Carte1,"et",Carte2)
+        #print(CarteH)
+        return("DPaire",Carte1,Carte2,CarteH)
     elif Paire==1:
-        print("Paire de",Carte1)
-        print(CarteH,CarteH2,CarteH3)
+        #print("Paire de",Carte1)
+        #print(CarteH,CarteH2,CarteH3)
+        return("Paire",Carte1,CarteH,CarteH2,CarteH3)
     else:
-        print("Carte haute :",Carte1)
-        print(CarteH,CarteH2,CarteH3,CarteH4)
-
+        #print("Carte haute :",Carte1)
+        #print(CarteH,CarteH2,CarteH3,CarteH4)
+        return("H",Carte1,CarteH,CarteH2,CarteH3,CarteH4)
     return(main)

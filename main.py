@@ -39,7 +39,7 @@ Cartes=ListeCartes.copy()
 Joueurs={}
 
 
-Ok=False
+Ok=False                                        #Choix du nombre de joueurs 
 while not Ok :
     nbj=input("Nombre de joueurs ? ")
     try:
@@ -82,13 +82,16 @@ print()
 F1 = Cartes.pop(randint(0,len(Cartes)-1)) # Oh mais c'est gênant ! Quoicouflop
 F2 = Cartes.pop(randint(0,len(Cartes)-1))
 F3 = Cartes.pop(randint(0,len(Cartes)-1))
+
+
+#On est censé mettre un truc ici pour les mises
+
 F4 = Cartes.pop(randint(0,len(Cartes)-1))
 F5 = Cartes.pop(randint(0,len(Cartes)-1))
 print(F1,F2,F3,F4,F5)
 
-templist=list(Joueurs.keys())
+templist=list(Joueurs.keys())                   #Donne pour chaque joueur sa main totale ( 7 cartes )
 for i in range(len(Listemains)):
-    #Listemains[i]=F1+F2+F3+F4+F5+Joueurs[templist[i][0]]+Joueurs[templist[i][1]]
     Listemains[i].append(F1)
     Listemains[i].append(F2)
     Listemains[i].append(F3)
@@ -96,10 +99,11 @@ for i in range(len(Listemains)):
     Listemains[i].append(F5)
     Listemains[i].append(Joueurs[templist[i]][0])
     Listemains[i].append(Joueurs[templist[i]][1])
-    print(i+1,":",Listemains[i])
 
-for i in range (nbj):
+for i in range (nbj):                           #Affiche les mains totales de chaque joueurs + les combinaisons 
     print("\n","JOUEUR",i+1,"\n")
     print(Listemains[i])
     print(fonctions.quinte(Listemains[i]))
+    print(fonctions.flush(Listemains[i]))
     print(fonctions.check(Listemains[i]))
+    
