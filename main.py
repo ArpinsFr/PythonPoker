@@ -38,33 +38,29 @@ Listemains=[M1,M2,M3,M4,M5,M6,M7,M8,M9]
 Cartes=ListeCartes.copy()
 Joueurs={}
 
+print()
 
-Ok=False                                        #Choix du nombre de joueurs 
-while not Ok :
+nbjok=False
+listtemp=list(DJoueurs.keys())                              #Choix + Initialisation du nombre de joueurs
+while not nbjok:
     nbj=input("Nombre de joueurs ? ")
     try:
         nbj=int(nbj)
     except:
         print("Entrer un nombre compris entre 2 et 9")
     else:
-        Ok=True
-
-print()
-
-nbjok=False
-listtemp=list(DJoueurs.keys())                              #Initialise le nombre de joueurs
-while not nbjok:                         #tant qu'il est entre 2 et 9
-    if nbj>1 and nbj <=9:
-        for i in range(nbj):
-            Joueurs[listtemp[i]]=DJoueurs[listtemp[i]]
-        Listemains=Listemains[:nbj]
-        nbjok=True
-    else:
-        print("Entre deux joueurs minimum et 9 joueurs maximum requis")
-        nbj=int(input("Nombre de joueurs ?"))
+        if nbj>1 and nbj <=9:
+            for i in range(nbj):
+                Joueurs[listtemp[i]]=DJoueurs[listtemp[i]]
+            Listemains=Listemains[:nbj]
+            nbjok=True
+        else:
+            print("Entrer un nombre compris entre 2 et 9")
 
 nbjv = nbj                            # Initialise le nombre de joueur au début d'une partie (Nombre de joueurs en vie)
-#while nbjv < 1:
+
+#while nbjv < 1:  --->  Lui il est bien placé on s'en servira que à la fin pour faire les boucles
+
 nbjs = nbjv                       # Initialise le nombre de joueur qui suivent la main
 for i in Joueurs.keys():
     Joueurs[i][0] = Cartes.pop(randint(0,len(Cartes)-1)) # Joueur 1 Carte 1
@@ -74,7 +70,9 @@ for i in Joueurs.keys():
 print()
 
 #Flop
-#while nbjs>1:
+
+#while nbjs>1: ---> Je sais pas ce que tu veux en faire mais ça va tirer des cartes à l'infini là
+
 F1 = Cartes.pop(randint(0,len(Cartes)-1)) # Oh mais c'est gênant ! Quoicouflop
 F2 = Cartes.pop(randint(0,len(Cartes)-1))
 F3 = Cartes.pop(randint(0,len(Cartes)-1))
@@ -95,10 +93,10 @@ for i in range(len(Listemains)):
     Listemains[i].append(Joueurs[templist[i]][0])
     Listemains[i].append(Joueurs[templist[i]][1])
 
-for i in range (nbj):                           #Affiche les mains totales de chaque joueurs + les combinaisons 
+for i in range (nbj):                           # DEBUG --- Affiche les mains totales de chaque joueurs + les combinaisons 
     print("\n","JOUEUR",i+1,"\n")
     print(Listemains[i])
-    print(fonctions.quinte(Listemains[i]))
-    print(fonctions.flush(Listemains[i]))
+    print("Quinte :",fonctions.quinte(Listemains[i]))
+    print("Flush :",fonctions.flush(Listemains[i]))
     print(fonctions.check(Listemains[i]))
     

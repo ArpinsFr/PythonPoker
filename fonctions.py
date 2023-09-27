@@ -16,32 +16,57 @@ def numero(main):
     return(main2)
 
 
-def flush(main):                        #Vérifie l'existence d'une flush
+def flush(main):                        #Vérifie l'existence d'une flush + Quinte flush si existe
     H=0
+    lh=[]
     D=0
+    ld=[]
     S=0
+    ls=[]
     C=0
+    lc=[]
     for i in main :
         if i[1]=='h':
             H+=1
+            lh.append(i)
         if i[1]=='d':
             D+=1
+            ld.append(i)
         if i[1]=='s':
             S+=1
+            ls.append(i)
         if i[1]=='c':
             C+=1
-    if H>=5 or D>=5 or S>=5 or C>=5:
-        return True
+            lc.append(i)
+    if H>4:
+        if quinte(lh)==True:
+            return("QF")
+        else:
+            return(True)
+    elif D>4:
+        if quinte(ld)==True:
+            return("QF")
+        else:
+            return(True)
+    elif S>4:
+        if quinte(ls)==True:
+            return("QF")
+        else:
+            return(True)
+    elif C>4:
+        if quinte(lc)==True:
+            return("QF")
+        else:
+            return(True)
     return False
 
 
 
 
-def quinte(main):                       #Vérifie l'existence d'une quinte / ( quinte flush marche pas encore )
+def quinte(main):                       #Vérifie l'existence d'une quinte
     Quinte=False
     main2=numero(main)
     main2.sort()
-    
     main3=[]
     dbl1=0
     dbl2=0
