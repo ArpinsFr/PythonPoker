@@ -15,6 +15,12 @@ def numero(main):
             main2.append(int(i[0]))
     return(main2)
 
+def maximum(main):
+    main=numero(main)
+    main.reverse()
+    maxi=main[0]
+    return(maxi)
+
 
 def flush(main):                        #Vérifie l'existence d'une flush + Quinte flush si existe
     H=0
@@ -40,22 +46,46 @@ def flush(main):                        #Vérifie l'existence d'une flush + Quin
             lc.append(i)
     if H>4:
         if quinte(lh)==True:
-            return("QF")
+            lh=numero(lh)
+            if maximum(lh)==14:
+                if 13 in lh and 12 in lh and 11 in lh:
+                    return(["QF",14])
+                else:
+                    return(["QF",5])
+            return("QF",maximum(lh))
         else:
             return(True)
     elif D>4:
         if quinte(ld)==True:
-            return("QF")
+            ld=numero(ld)
+            if maximum(ld)==14:
+                if 13 in lh and 12 in lh and 11 in lh:
+                    return(["QF",14])
+                else:
+                    return(["QF",5])
+            return("QF",maximum(ld))
         else:
             return(True)
     elif S>4:
         if quinte(ls)==True:
-            return("QF")
+            ls=numero(ls)
+            if maximum(ls)==14:
+                if 13 in lh and 12 in lh and 11 in lh:
+                    return(["QF",14])
+                else:
+                    return(["QF",5])
+            return("QF",maximum(ls))
         else:
             return(True)
     elif C>4:
         if quinte(lc)==True:
-            return("QF")
+            lc=numero(lc)
+            if maximum(lc)==14:
+                if 13 in lh and 12 in lh and 11 in lh:
+                    return(["QF",14])
+                else:
+                    return(["QF",5])
+            return("QF",maximum(lc))
         else:
             return(True)
     return False
@@ -64,7 +94,6 @@ def flush(main):                        #Vérifie l'existence d'une flush + Quin
 
 
 def quinte(main):                       #Vérifie l'existence d'une quinte
-    Quinte=False
     main2=numero(main)
     main2.sort()
     main3=[]
@@ -80,18 +109,18 @@ def quinte(main):                       #Vérifie l'existence d'une quinte
             main3.append(i)
     print(main3)
     if len(main3)<=4:
-        return(Quinte)
+        return(False)
     else:
         if main3[len(main3)-1]==14:
             if main3[0]==2 and main3[1]==3 and main3[2]==4 and main3[3]==5:
-                Quinte=True
+                return(5)
             elif main3[len(main3)-2]==13 and main3[len(main3)-3]==12 and main3[len(main3)-4]==11 and main3[len(main3)-5]==10:
-                Quinte=True
+                return(14)
         else:
             for i in range (len(main3)-4):
                 if main3[i+1]==main3[i]+1 and main3[i+2]==main3[i]+2 and main3[i+3]==main3[i]+3 and main3[i+4]==main3[i]+4:
-                    Quinte=True
-        return(Quinte)
+                    return(main3[i]+4)
+        return(False)
 
 
 def check(main):                            #Fait en gros tout le reste 
