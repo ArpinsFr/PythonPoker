@@ -1,18 +1,18 @@
 def numero(main):
-    main2=[]                            #  Ajoute dans la liste main2 les numeros de chaque carte
-    for i in main :                     #  avec A=1 J=11 Q=12 K=13 en tant qu'entiers et pas en chaînes
-        if i[0]=='T':                   #  de caractères.
-            main2.append(10)            #
-        elif i[0]=='A':                 #  (Plus facile pour comparer les nombres)
-            main2.append(14)            #  
-        elif i[0]=='J':                 #
-            main2.append(11)            #
-        elif i[0]=='Q':                 #
-            main2.append(12)            #
-        elif i[0]=='K':                 #
-            main2.append(13)            #
-        else :                          #
-            main2.append(int(i[0]))     # -----------------------------------------------------------------
+    main2=[]                            #Ajoute dans la liste main2 les numeros de chaque carte
+    for i in main :                     #avec A=1 J=11 Q=12 K=13 en tant qu'entiers et pas en chaînes
+        if i[0]=='T':                   #de caractères.
+            main2.append(10)            #(Plus facile pour comparer les nombres)
+        elif i[0]=='A':
+            main2.append(14) 
+        elif i[0]=='J':
+            main2.append(11)
+        elif i[0]=='Q':
+            main2.append(12)
+        elif i[0]=='K':
+            main2.append(13)
+        else :
+            main2.append(int(i[0]))
     return(main2)
 
 
@@ -82,10 +82,10 @@ def quinte(main):                       #Vérifie l'existence d'une quinte
     if len(main3)<=4:
         return(Quinte)
     else:
-        if main3[len(main)-1]==14:
+        if main3[len(main3)-1]==14:
             if main3[0]==2 and main3[1]==3 and main3[2]==4 and main3[3]==5:
                 Quinte=True
-            elif main3[len(main)-2]==13 and main3[len(main)-3]==12 and main3[len(main)-4]==11 and main3[len(main)-5]==10 and
+            elif main3[len(main3)-2]==13 and main3[len(main3)-3]==12 and main3[len(main3)-4]==11 and main3[len(main3)-5]==10:
                 Quinte=True
         else:
             for i in range (len(main3)-4):
@@ -98,7 +98,7 @@ def check(main):                            #Fait en gros tout le reste
     main=numero(main)
     main.sort()
     main.reverse()
-    Carré = False
+    Carre = False
     Brelan = False
     Full = False
     Paire = 0
@@ -136,9 +136,9 @@ def check(main):                            #Fait en gros tout le reste
                         CarteH=main[0]
                         CarteH2=main[1]
                     if Full==True:
-                        return("Full",Carte1,Carte2))
+                        return("Full",Valeur,Valeur2)
                     elif Brelan==True:
-                        return("Brelan",Carte1,CarteH,CarteH2)
+                        return("Brelan",Valeur,CarteH,CarteH2)
                 else: 
                     for i in range (len(main)-1):
                         if Paire==0 and main[i]==main[i+1]:
@@ -177,11 +177,9 @@ def check(main):                            #Fait en gros tout le reste
                         CarteH2 = main[2]
                         CarteH3 = main[3]
                         CarteH4 = main[4]
-    Carte1=Valeur
-    Carte2=Valeur2
     if Paire==2:
-        return("DPaire",Carte1,Carte2,CarteH)
+        return("DPaire",Valeur,Valeur2,CarteH)
     elif Paire==1:
-        return("Paire",Carte1,CarteH,CarteH2,CarteH3)
+        return("Paire",Valeur,CarteH,CarteH2,CarteH3)
     else:
-        return("H",Carte1,CarteH,CarteH2,CarteH3,CarteH4)
+        return("H",Valeur,CarteH,CarteH2,CarteH3,CarteH4)
