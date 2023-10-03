@@ -206,9 +206,21 @@ def check(main):                            #Fait en gros tout le reste
                         CarteH2 = main[2]
                         CarteH3 = main[3]
                         CarteH4 = main[4]
-    if Paire==2:
-        return("DPaire",Valeur,Valeur2,CarteH)
-    elif Paire==1:
-        return("Paire",Valeur,CarteH,CarteH2,CarteH3)
-    else:
-        return("H",Valeur,CarteH,CarteH2,CarteH3,CarteH4)
+                        return("H",Valeur,CarteH,CarteH2,CarteH3,CarteH4)                  
+                    if Paire==2:
+                        return("DPaire",Valeur,Valeur2,CarteH)
+                    elif Paire==1:
+                        return("Paire",Valeur,CarteH,CarteH2,CarteH3)
+
+
+def score(main):
+    check(main.Listemains[i])
+    if Paire==1:
+        main.Scores.append(2)
+        main.Valeurs.append(Valeur)
+        main.CartesH.append(10000*CarteH+100*CarteH2+1*CarteH3)
+    elif Paire==0:
+        main.Scores.append(1)
+        main.Valeurs.append(Valeur)
+        main.CartesH.append(100000*CarteH+1000*CarteH2+10*CarteH3+CarteH4)          
+        
