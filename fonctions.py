@@ -52,9 +52,12 @@ def flush(main):                        #Vérifie l'existence d'une flush + Quin
                     return(["QF",14])
                 else:
                     return(["QF",5])
-            return("QF",maximum(lh))
+            return(["QF",maximum(lh)])
         else:
-            return(True)
+            lh=numero(lh)
+            lh.sort()
+            lh.reverse()
+            return(["F",lh])
     elif D>4:
         if quinte(ld)==True:
             ld=numero(ld)
@@ -63,9 +66,12 @@ def flush(main):                        #Vérifie l'existence d'une flush + Quin
                     return(["QF",14])
                 else:
                     return(["QF",5])
-            return("QF",maximum(ld))
+            return(["QF",maximum(ld)])
         else:
-            return(True)
+            ld=numero(ld)
+            ld.sort()
+            ld.reverse()
+            return(["F",ld])
     elif S>4:
         if quinte(ls)==True:
             ls=numero(ls)
@@ -74,9 +80,12 @@ def flush(main):                        #Vérifie l'existence d'une flush + Quin
                     return(["QF",14])
                 else:
                     return(["QF",5])
-            return("QF",maximum(ls))
+            return(["QF",maximum(ls)])
         else:
-            return(True)
+            ls=numero(ls)
+            ls.sort()
+            ls.reverse()
+            return(["F",ls])
     elif C>4:
         if quinte(lc)==True:
             lc=numero(lc)
@@ -85,10 +94,13 @@ def flush(main):                        #Vérifie l'existence d'une flush + Quin
                     return(["QF",14])
                 else:
                     return(["QF",5])
-            return("QF",maximum(lc))
+            return(["QF",maximum(lc)])
         else:
-            return(True)
-    return False
+            lc=numero(lc)
+            lc.sort()
+            lc.reverse()
+            return(["F",lc])
+    return([])
 
 
 
@@ -107,9 +119,8 @@ def quinte(main):                       #Vérifie l'existence d'une quinte
                 dbl1=i
         else :
             main3.append(i)
-    print(main3)
     if len(main3)<=4:
-        return(False)
+        return(0)
     else:
         if main3[len(main3)-1]==14:
             if main3[0]==2 and main3[1]==3 and main3[2]==4 and main3[3]==5:
@@ -120,7 +131,7 @@ def quinte(main):                       #Vérifie l'existence d'une quinte
             for i in range (len(main3)-4):
                 if main3[i+1]==main3[i]+1 and main3[i+2]==main3[i]+2 and main3[i+3]==main3[i]+3 and main3[i+4]==main3[i]+4:
                     return(main3[i]+4)
-        return(False)
+        return(0)
 
 
 def check(main):                            #Fait en gros tout le reste 
@@ -145,7 +156,7 @@ def check(main):                            #Fait en gros tout le reste
             else:
                 CarteH = main[0]
         if Carre==True :
-            return("Carre",Carte1,CarteH)
+            return(["Carre",Carte1,CarteH])
         else:
             for i in range (len(main)-2):
                 if main[i]==main[i+2] and Brelan!=True:
@@ -165,9 +176,9 @@ def check(main):                            #Fait en gros tout le reste
                         CarteH=main[0]
                         CarteH2=main[1]
                     if Full==True:
-                        return("Full",Valeur,Valeur2)
+                        return(["Full",Valeur,Valeur2])
                     elif Brelan==True:
-                        return("Brelan",Valeur,CarteH,CarteH2)
+                        return(["Brelan",Valeur,CarteH,CarteH2])
                 else: 
                     for i in range (len(main)-1):
                         if Paire==0 and main[i]==main[i+1]:
@@ -206,13 +217,14 @@ def check(main):                            #Fait en gros tout le reste
                         CarteH2 = main[2]
                         CarteH3 = main[3]
                         CarteH4 = main[4]
-                        return("H",Valeur,CarteH,CarteH2,CarteH3,CarteH4)                  
+                        return(["H",Valeur,CarteH,CarteH2,CarteH3,CarteH4])                  
                     if Paire==2:
-                        return("DPaire",Valeur,Valeur2,CarteH)
+                        return(["DPaire",Valeur,Valeur2,CarteH])
                     elif Paire==1:
-                        return("Paire",Valeur,CarteH,CarteH2,CarteH3)
+                        return(["Paire",Valeur,CarteH,CarteH2,CarteH3])
 
 
+'''
 def score(main):
     check(main.Listemains[i])
     if Paire==1:
@@ -223,4 +235,4 @@ def score(main):
         main.Scores.append(1)
         main.Valeurs.append(Valeur)
         main.CartesH.append(100000*CarteH+1000*CarteH2+10*CarteH3+CarteH4)          
-        
+'''
