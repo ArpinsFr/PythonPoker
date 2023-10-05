@@ -152,11 +152,11 @@ def check(main):                            #Fait en gros tout le reste
             Carre = True
             Valeur = main[i]
             if i == 0:
-                CarteH = main[i+4]
+                CarteH = main[4]
             else:
                 CarteH = main[0]
         if Carre==True :
-            return(["Carre",Carte1,CarteH])
+            return(["Carre",Valeur,CarteH])
         else:
             for i in range (len(main)-2):
                 if main[i]==main[i+2] and Brelan!=True:
