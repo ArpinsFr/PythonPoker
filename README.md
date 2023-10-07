@@ -1,7 +1,7 @@
 # PythonPoker
 
-This code is made by two dumb french guys in high school
-This has no purpose other than having fun coding a poker game in Python
+This code is made by two dumb french guys in high school.
+This has no purpose other than having fun coding a poker game in Python.
 
 /!\ EVERY CHANGELOG IS AND WILL BE ANNOUNCED IN FRENCH /!\
 
