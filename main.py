@@ -5,73 +5,15 @@ import fonctions
 nbjv=9
 
 while nbjv>1 :
-
-  J11=""
-  J12=""
-  J21=""
-  J22=""
-  J31=""
-  J32=""
-  J41=""
-  J42=""
-  J51=""
-  J52=""
-  J61=""
-  J62=""
-  J71=""
-  J72=""
-  J81=""
-  J82=""
-  J91=""
-  J92=""
-  
-  M1=[]
-  M2=[]
-  M3=[]
-  M4=[]
-  M5=[]
-  M6=[]
-  M7=[]
-  M8=[]
-  M9=[]
-
-  C1=[]
-  Q1=[]
-  Fl1=[]
-  C2=[]
-  Q2=[]
-  Fl2=[]
-  C3=[]
-  Q3=[]
-  Fl3=[]
-  C4=[]
-  Q4=[]
-  Fl4=[]
-  C5=[]
-  Q5=[]
-  Fl5=[]
-  C6=[]
-  Q6=[]
-  Fl6=[]
-  C7=[]
-  Q7=[]
-  Fl7=[]
-  C8=[]
-  Q8=[]
-  Fl8=[]
-  C9=[]
-  Q9=[]
-  Fl9=[]
-  
   Scores = []
   Valeurs = [] 
   CartesH = []
 
   
   Cartes = ['Ah','2h', '3h', '4h', '5h', '6h', '7h', '8h', '9h', 'Th', 'Jh', 'Qh', 'Kh', 'Ac','2c', '3c', '4c', '5c', '6c', '7c', '8c', '9c', 'Tc', 'Jc', 'Qc', 'Kc', 'Ad','2d', '3d', '4d', '5d', '6d', '7d', '8d', '9d', 'Td', 'Jd', 'Qd', 'Kd', 'As','2s', '3s', '4s', '5s', '6s', '7s', '8s', '9s', 'Ts', 'Js', 'Qs', 'Ks']
-  DJoueurs = {"J1":[J11,J12],"J2":[J21,J22],"J3":[J31,J32],"J4":[J41,J42],"J5":[J51,J52],"J6":[J61,J62],"J7":[J71,J72],"J8":[J81,J82],"J9":[J91,J92]}
-  Listemains=[M1,M2,M3,M4,M5,M6,M7,M8,M9]
-  Checkmain=[[C1,Q1,Fl1],[C2,Q2,Fl2],[C3,Q3,Fl3],[C4,Q4,Fl4],[C5,Q5,Fl5],[C6,Q6,Fl6],[C7,Q7,Fl7],[C8,Q8,Fl8],[C9,Q9,Fl9]]
+  DJoueurs = {"J1":[0,0],"J2":[0,0],"J3":[0,0],"J4":[0,0],"J5":[0,0],"J6":[0,0],"J7":[0,0],"J8":[0,0],"J9":[0,0]}
+  Listemains=[[],[],[],[],[],[],[],[],[]]
+  Checkmain=[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
   Joueurs={}
   
   print()
@@ -143,7 +85,17 @@ while nbjv>1 :
     Checkmain[i][2]=fonctions.flush(Listemains[i]).copy()
     print("Flush :",fonctions.flush(Listemains[i]))
 
-  '''
-  print(Checkmain[2][0])
-  print(Checkmain[2][1])
-  print(Checkmain[2][2])'''
+  print()
+  print()
+  for i in range(nbj):
+    if Checkmain[i][2][0]=='QF':
+      Listemains[i]=Checkmain[i][2]
+    elif Checkmain[i][0][0]=='Carre' or Checkmain[i][0][0]=='Full':
+      Listemains[i]=Checkmain[i][0]
+    elif Checkmain[i][2][0]=='F':
+      Listemains[i]=Checkmain[i][2]
+    elif Checkmain[i][1][0]=='Q':
+      Listemains[i]=Checkmain[i][1]
+    else:
+      Listemains[i]=Checkmain[i][0]
+    print(Listemains[i])
