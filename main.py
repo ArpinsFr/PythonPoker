@@ -13,6 +13,7 @@ while nbjv>1 :
   Cartes = ['Ah','2h', '3h', '4h', '5h', '6h', '7h', '8h', '9h', 'Th', 'Jh', 'Qh', 'Kh', 'Ac','2c', '3c', '4c', '5c', '6c', '7c', '8c', '9c', 'Tc', 'Jc', 'Qc', 'Kc', 'Ad','2d', '3d', '4d', '5d', '6d', '7d', '8d', '9d', 'Td', 'Jd', 'Qd', 'Kd', 'As','2s', '3s', '4s', '5s', '6s', '7s', '8s', '9s', 'Ts', 'Js', 'Qs', 'Ks']
   DJoueurs = {"J1":[0,0],"J2":[0,0],"J3":[0,0],"J4":[0,0],"J5":[0,0],"J6":[0,0],"J7":[0,0],"J8":[0,0],"J9":[0,0]}
   Listemains=[[],[],[],[],[],[],[],[],[]]
+  Points=[0,0,0,0,0,0,0,0,0]
   Checkmain=[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
   Joueurs={}
   
@@ -87,15 +88,96 @@ while nbjv>1 :
 
   print()
   print()
+  
   for i in range(nbj):
     if Checkmain[i][2][0]=='QF':
       Listemains[i]=Checkmain[i][2]
+      Points[i]=8
     elif Checkmain[i][0][0]=='Carre' or Checkmain[i][0][0]=='Full':
       Listemains[i]=Checkmain[i][0]
+      if Checkmain[i][0][0]=='Carre':
+        Points[i]=7
+      else:
+        Points[i]=6
     elif Checkmain[i][2][0]=='F':
       Listemains[i]=Checkmain[i][2]
+      Points[i]=5
     elif Checkmain[i][1][0]=='Q':
       Listemains[i]=Checkmain[i][1]
+      Points[i]=4
     else:
       Listemains[i]=Checkmain[i][0]
+      if Checkmain[i][0][0]=='Brelan':
+        Points[i]=3
+      elif Checkmain[i][0][0]=='DPaire':
+        Points[i]=2
+      elif Checkmain[i][0][0]=='Paire':
+        Points[i]=1
     print(Listemains[i])
+
+  indl=[]
+  m=Points[0]
+  for i in range(nbj):
+    if Points[i]>m:
+      m=Points[i]
+      indl=[i]
+    elif Points[i]==m:
+      indl.append(i)
+  print()
+  print(indl)
+
+  win=fonctions.comparer(indl,Listemains,len(Listemains[indl[0]]))
+  try:
+    a=win[0]
+  except:
+    if Listemains[win][1]==14:
+      card="As"
+    elif Listemains[win][1]==13:
+      card="Roi"
+    elif Listemains[win][1]==12:
+      card="Dame"
+    elif Listemains[win][1]==11:
+      card="Valet"
+    else:
+      card=Listemains[win][1]
+    if Listemains[win][0]=="Full":
+      if Listemains[win][2]==14:
+        card2="As"
+      elif Listemains[win][2]==13:
+        card2="Roi"
+      elif Listemains[win][2]==12:
+        card2="Dame"
+      elif Listemains[win][2]==11:
+        card2="Valet"
+      else:
+        card2=Listemains[win][2]
+      print("Le joueur",win+1,"gagne avec un full aux",card,"par les",card2)
+    elif Listemains[win][0]=="DPaire":
+      if Listemains[win][2]==14:
+        card2="As"
+      elif Listemains[win][2]==13:
+        card2="Roi"
+      elif Listemains[win][2]==12:
+        card2="Dame"
+      elif Listemains[win][2]==11:
+        card2="Valet"
+      else:
+        card2=Listemains[win][2]
+      print("Le joueur",win+1,"gagne avec une double paire de",card,"et de",card2)
+    elif Listemains[win][0]=="F":
+      print("Le joueur",win+1,"gagne avec une Flush")
+    else:
+      if Listemains[win][0]=="QF":
+        main="Quinte Flush"
+      elif Listemains[win][0]=="Q":
+        main="Quinte"
+      else:
+        main=Listemains[win][0]
+      print("Le joueur",win+1,"gagne avec une",main,"de",card)
+  else:
+    egal="Egalité entre les joueurs "
+    for i in win:
+      egal = egal + str(i+1)
+      if i != win[-1]:
+        egal = egal + " et "
+    print(egal)

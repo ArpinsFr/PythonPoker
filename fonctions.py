@@ -58,7 +58,7 @@ def flush(main):  #Vérifie l'existence d'une flush + Quinte flush si existe
       lh = numero(lh)
       lh.sort()
       lh.reverse()
-      return (["F", lh])
+      return (["F", lh[0],lh[1],lh[2],lh[3],lh[4]])
   elif D > 4:
     if quinte(ld) == True:
       ld = numero(ld)
@@ -72,7 +72,7 @@ def flush(main):  #Vérifie l'existence d'une flush + Quinte flush si existe
       ld = numero(ld)
       ld.sort()
       ld.reverse()
-      return (["F", ld])
+      return (["F", ld[0],ld[1],ld[2],ld[3],ld[4]])
   elif S > 4:
     if quinte(ls) == True:
       ls = numero(ls)
@@ -86,7 +86,7 @@ def flush(main):  #Vérifie l'existence d'une flush + Quinte flush si existe
       ls = numero(ls)
       ls.sort()
       ls.reverse()
-      return (["F", ls])
+      return (["F", ls[0],ls[1],ls[2],ls[3],ls[4]])
   elif C > 4:
     if quinte(lc) == True:
       lc = numero(lc)
@@ -100,7 +100,7 @@ def flush(main):  #Vérifie l'existence d'une flush + Quinte flush si existe
       lc = numero(lc)
       lc.sort()
       lc.reverse()
-      return (["F", lc])
+      return (["F", lc[0],lc[1],lc[2],lc[3],lc[4]])
   return ([0])
 
 
@@ -122,7 +122,6 @@ def quinte(main):                       #Vérifie l'existence d'une quinte
     if len(main3)<=4:
         return([0])
     else:
-        
         for i in range (len(main3)-4):
             if main3[i+1]==main3[i]-1 and main3[i+2]==main3[i]-2 and main3[i+3]==main3[i]-3 and main3[i+4]==main3[i]-4:
                 return(['Q',main3[i]])
@@ -223,16 +222,20 @@ def check(main):  #Fait en gros tout le reste
           elif Paire == 1:
             return (["Paire", Valeur, CarteH, CarteH2, CarteH3])
 
-
-'''
-def score(main):
-    check(main.Listemains[i])
-    if Paire==1:
-        main.Scores.append(2)
-        main.Valeurs.append(Valeur)
-        main.CartesH.append(10000*CarteH+100*CarteH2+1*CarteH3)
-    elif Paire==0:
-        main.Scores.append(1)
-        main.Valeurs.append(Valeur)
-        main.CartesH.append(100000*CarteH+1000*CarteH2+10*CarteH3+CarteH4)          
-'''
+def comparer(indl,Listemains,leng):
+  if len(indl)!=1:
+    for i in range (leng-1):
+      max=0
+      lmax=[]
+      for j in indl:
+        if Listemains[j][i+1] > max:
+          max=Listemains[j][i+1]
+          lmax=[]
+          lmax.append(j)
+        elif Listemains[j][i+1] == max:
+          lmax.append(j)
+      if lmax!=indl:
+        return(comparer(lmax,Listemains,leng))
+    return(indl)
+  else:
+    return(indl[0])
