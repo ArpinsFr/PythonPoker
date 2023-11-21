@@ -239,3 +239,45 @@ def comparer(indl,Listemains,leng):
     return(indl)
   else:
     return(indl[0])
+
+'''
+def suivre(i):
+  suivi=False
+      if i+3+Tour <= nbjv:
+      while not suivi:
+        print("Joueur",i+3)
+        Suivre = (input("Que faire ? 0:Se coucher 1:Suivre 2:Relancer")) #
+        try:
+          Suivre=int(Suivre)
+        except:
+          print("Entrez une réponse proposée")
+        else:
+          if Suivre<0 or Suivre>2:
+            print("Entrez une réponse proposée")
+          else:
+            suivi = True
+      if Suivre == 0:
+        nbjs-=1
+        JoueursSuivent.pop(i+2)
+      elif Suivre == 1:
+        Banques[i+2]=Banques[i+2]-MiseMax
+        Pot += MiseMax
+        Mises[i+2]=MiseMax
+      else:
+        Relancee = False  
+        while not Relancee:
+          Relan = input("Relancer à combien?")
+          try:
+            Relan=int(Relan)
+          except:
+            print("Entrez un chiffre compris entre",2*MiseMax,"et",Banques[i+2])
+          else:
+            if Relan<2*MiseMax or Relan>Banques[i+2]:
+              print("Entrez un chiffre compris entre",2*MiseMax,"et",Banques[i+2])
+            else:
+              Relancee = True
+        Banques[i+2]-=Relan
+        Pot = Pot + Relan
+        MiseMax = Relan
+        Mises[i+2]=Relan
+'''
