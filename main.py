@@ -19,17 +19,41 @@ def tour(tour,nbjs):
       tmise=tour
   return(tmise)
 
+def printmain(i) :
+  global Checkmain,JoueursSuivent
+  if Checkmain[JoueursSuivent[i]][2][0]=='QF' :
+    print("-- Quinte Flush --")
+  elif Checkmain[JoueursSuivent[i]][0][0] == "Carre" :
+    print("-- Carre --")
+  elif Checkmain[JoueursSuivent[i]][0][0] == "Full" :
+    print("-- Full --")
+  elif Checkmain[JoueursSuivent[i]][2][0]=='F' :
+    print("-- Couleur --")
+  elif Checkmain[JoueursSuivent[i]][1][0]=='Q' :
+    print("-- Quinte --")
+  elif Checkmain[JoueursSuivent[i]][0][0] == 'Brelan' :
+    print('-- Brelan --')
+  elif Checkmain[JoueursSuivent[i]][0][0] == 'DPaire' :
+    print('-- Double Paire --')
+  elif Checkmain[JoueursSuivent[i]][0][0] == 'Paire' :
+    print('-- Paire --')
+  else:
+    print('-- Carte Haute --')
 
 def suivre(mise,tmise,nbjs):
   if nbjs>1:
     global F1,F2,F3,F4,F5,GBlinde,Banques,JoueursSuivent,Mises,Pot
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n","Cartes milieu :",flop)
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n","Cartes milieu :",flop)
     sleep(2)
     tmise=tour(tmise,nbjs)
+    attribuemain()
     for i in range(nbjs):
         if i not in JTapis:
-          print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+          print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
           print("Joueur",JoueursSuivent[tmise]+1,"\n")
+          print("Main actuelle :",Listemains[JoueursSuivent[tmise]])
+          if len(Listemains[JoueursSuivent[tmise]])>2:
+            printmain(tmise)
           print("Banque :",Banques[JoueursSuivent[tmise]])
           print("Mise actuelle :",mise,"\n")
           tok=False
@@ -64,12 +88,16 @@ def suivre(mise,tmise,nbjs):
   else:
     suiviok=True
 def suivre2(mise,tmise,nbjs):
-    global F1,F2,F3,F4,F5,GBlinde,Banques,JoueursSuivent,Mises,Pot
+    global F1,F2,F3,F4,F5,GBlinde,Banques,JoueursSuivent,Mises,Pot,Listemains
     tmise=tour(tmise,nbjs)
+    attribuemain()
     for i in range(nbjs-1):
       if i not in JTapis:
-        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
         print("Joueur",JoueursSuivent[tmise]+1,"\n")
+        print("Main actuelle :",Listemains[JoueursSuivent[tmise]])
+        if len(Listemains[JoueursSuivent[tmise]])>2:
+          printmain(tmise)
         print("Banque :",Banques[JoueursSuivent[tmise]])
         print("Mise actuelle :",mise,"\n")
         tok=False
@@ -113,6 +141,15 @@ def fold():
       JoueursSuivent.pop(i)
     else:
       i+=1
+
+def attribuemain():
+  global Checkmain,JoueursSuivent,nbjs
+  for i in range (nbjs):    
+    print("\n","JOUEUR",i+1,"\n")
+    print(Listemains[i])
+    Checkmain[JoueursSuivent[i]][0]=fonctions.check(Listemains[JoueursSuivent[i]])
+    Checkmain[JoueursSuivent[i]][1]=fonctions.quinte(Listemains[JoueursSuivent[i]])
+    Checkmain[JoueursSuivent[i]][2]=fonctions.flush(Listemains[JoueursSuivent[i]])
     
 DeJoueurs = {"J1":[0,0],"J2":[0,0],"J3":[0,0],"J4":[0,0],"J5":[0,0],"J6":[0,0],"J7":[0,0],"J8":[0,0],"J9":[0,0]}
 Joueurs2={}
@@ -231,15 +268,14 @@ while nbjv>1 :
       else:
         suiviok=True
     
-    #Flop
-       
+  #Flop
   F1 = Cartes.pop(randint(0,len(Cartes)-1))
   F2 = Cartes.pop(randint(0,len(Cartes)-1))
   F3 = Cartes.pop(randint(0,len(Cartes)-1))
   flop.append(F1)
   flop.append(F2)
   flop.append(F3)
-  templist=list(Joueurs.keys())    #Donne pour chaque joueur sa main totale ( 7 cartes )
+  templist=list(Joueurs.keys())
   for i in range(len(Listemains)):
         Listemains[i].append(F1)
         Listemains[i].append(F2)
@@ -258,7 +294,6 @@ while nbjv>1 :
         suiviok=True
   
   #River 
-    
   if nbjs>1:
       suiviok=False
   F4 = Cartes.pop(randint(0,len(Cartes)-1))
@@ -276,8 +311,7 @@ while nbjv>1 :
       else:
         suiviok=True
   
-    #Turn
-    
+  #Turn
   if nbjs>1:
     suiviok=False
   F5 = Cartes.pop(randint(0,len(Cartes)-1))
@@ -293,21 +327,8 @@ while nbjv>1 :
         suivi=suivre2(suivi[2],suivi[1]-1,nbjs)
       else:
         suiviok=True
-  
   print(F1,F2,F3,F4,F5)
-
-  for i in range (nbjs):    # DEBUG --- Affiche les mains totales de chaque joueurs + les combinaisons 
-    print("\n","JOUEUR",i+1,"\n")
-    print(Listemains[i])
-    Checkmain[JoueursSuivent[i]][0]=fonctions.check(Listemains[JoueursSuivent[i]]).copy()
-    print(fonctions.check(Listemains[JoueursSuivent[i]]))
-    Checkmain[JoueursSuivent[i]][1]=fonctions.quinte(Listemains[JoueursSuivent[i]])
-    print("Quinte :",fonctions.quinte(Listemains[JoueursSuivent[i]]))
-    Checkmain[JoueursSuivent[i]][2]=fonctions.flush(Listemains[JoueursSuivent[i]]).copy()
-    print("Flush :",fonctions.flush(Listemains[JoueursSuivent[i]]))
-
-  print()
-  print()
+  print('\n\n')
   
   for i in range(nbjs):
     if Checkmain[JoueursSuivent[i]][2][0]=='QF':
@@ -409,7 +430,6 @@ while nbjv>1 :
       Banques[i]+=Pot
     print(egal)
     
-
   i=0
   while i<nbjs:
     if Banques[Listejoueurs[i]] <= 0:
@@ -417,8 +437,7 @@ while nbjv>1 :
       Listejoueurs.pop(i)
     else:
       i+=1
-
-  
+      
   Tour+=1
   if Tour == nbjv:
     Tour = 0
@@ -429,11 +448,10 @@ while nbjv>1 :
   print()
   print(Tour)
 
-
   SBanques=0
   for i in range (nbj):
     SBanques+=Banques[i]
+    
   print("Débug : Argent en jeu",SBanques)
-
   print("Débug : ",JoueursSuivent)
   print("Débug : Mises ",Mises)

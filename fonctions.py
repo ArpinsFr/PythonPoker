@@ -145,7 +145,7 @@ def check(main):  #Fait en gros tout le reste
   CarteH2 = 0
   CarteH3 = 0
   CarteH4 = 0
-  for i in range(4):
+  for i in range(len(main)-3):
     if main[i] == main[i + 3]:
       Carre = True
       Valeur = main[i]
