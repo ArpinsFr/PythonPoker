@@ -42,7 +42,7 @@ def printmain(i) :
 
 def suivre(mise,tmise,nbjs):
   if nbjs>1:
-    global F1,F2,F3,F4,F5,GBlinde,Banques,JoueursSuivent,Mises,Pot
+    global F1,F2,F3,F4,F5,GBlinde,Banques,JoueursSuivent,Mises,Pot,JTapis
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n","Cartes milieu :",flop)
     sleep(2)
     tmise=tour(tmise,nbjs)
@@ -64,19 +64,32 @@ def suivre(mise,tmise,nbjs):
               if a=="C":
                 tok=True
               elif a=="M":
-                b=input("Mise ? (Minimum : "+str(GBlinde)+" )\n")
-                try:
-                  b=int(b)
-                except:
-                  pass
-                else: 
-                  if b>=GBlinde and GBlinde<=Banques[JoueursSuivent[tmise]]:
-                    Banques[JoueursSuivent[tmise]]-=b
-                    Pot=Pot+(b-Mises[JoueursSuivent[tmise]])
-                    mise=b
-                    Mises[JoueursSuivent[tmise]]=b
-                    tok=True
-                    return(["R",tmise,mise])
+                miseok=False
+                while True :
+                  b=input("Mise ? (Minimum : "+str(GBlinde)+" )\n")
+                  try:
+                    b=int(b)
+                  except:
+                    pass
+                  else: 
+                    if b>=GBlinde:
+                      if b>Banques[JoueursSuivent[tmise]]:
+                        print("Pas assez d'argent")
+                      if b==Banques[JoueursSuivent[tmise]]:
+                        tapisok=input("Tapis ? (O/N)")
+                        if tapisok=="O" :
+                          Pot+=Banques[JoueursSuivent[tmise]]
+                          Banques[JoueursSuivent[tmise]]=0
+                          mise=b
+                          JTapis.append(JoueursSuivent[tmise])
+                          tok=True
+                          return["R",tmise,mise]
+                      else:
+                        Banques[JoueursSuivent[tmise]]-=b
+                        Pot=Pot+(b-Mises[JoueursSuivent[tmise]])
+                        mise=b
+                        Mises[JoueursSuivent[tmise]]=b
+                        return(["R",tmise,mise])
               elif a=="F":
                 JoueursSuivent[tmise]="Fold"
                 tok=True
@@ -88,11 +101,11 @@ def suivre(mise,tmise,nbjs):
   else:
     suiviok=True
 def suivre2(mise,tmise,nbjs):
-    global F1,F2,F3,F4,F5,GBlinde,Banques,JoueursSuivent,Mises,Pot,Listemains
+    global F1,F2,F3,F4,F5,GBlinde,Banques,JoueursSuivent,Mises,Pot,Listemains,JTapis
     tmise=tour(tmise,nbjs)
     attribuemain()
     for i in range(nbjs-1):
-      if i not in JTapis:
+      if JoueursSuivent[tmise] not in JTapis:
         print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
         print("Joueur",JoueursSuivent[tmise]+1,"\n")
         print("Main actuelle :",Listemains[JoueursSuivent[tmise]])
@@ -102,30 +115,55 @@ def suivre2(mise,tmise,nbjs):
         print("Mise actuelle :",mise,"\n")
         tok=False
         while not tok:
-          print("Suivre (",(mise-Mises[JoueursSuivent[tmise]]),") / Relancer / Se Coucher")
-          a=input("S / R / F\n")
+          if mise >= Banques[JoueursSuivent[tmise]]:
+            print("Tapis (",Banques[JoueursSuivent[tmise]],") / Se Coucher")
+            a=input("T / F")
+          else :
+            print("Suivre (",(mise-Mises[JoueursSuivent[tmise]]),") / Relancer (Minimum :",2*mise,") / Se Coucher")
+            a=input("S / R / F\n")
           if a=="S":
             tok=True
             Banques[JoueursSuivent[tmise]]-=(mise-Mises[JoueursSuivent[tmise]])
             Pot=Pot+(mise-Mises[JoueursSuivent[tmise]])
             Mises[JoueursSuivent[tmise]]=mise
           elif a=="R":
-            b=input("Mise ? (Minimum : "+str(2*mise)+" )\n")
-            try:
-              b=int(b)
-            except:
-              pass
-            else: 
-              if b>=2*mise and GBlinde<=Banques[JoueursSuivent[tmise]]:
-                Banques[JoueursSuivent[tmise]]-=(b-Mises[JoueursSuivent[tmise]])
-                Pot+=(b-Mises[JoueursSuivent[tmise]])
-                Mises[JoueursSuivent[tmise]]=b
-                mise=b
-                tok=True
-                return(["R",tmise,mise])
+            miseok=False
+            while not miseok:
+              b=input("Mise ? (Minimum : "+str(2*mise)+" )\n")
+              try:
+                b=int(b)
+              except:
+                pass
+              else: 
+                if b>2*mise :
+                  if b>Banques[JoueursSuivent[tmise]]:
+                    print("Pas assez d'argent")
+                  else:
+                    Banques[JoueursSuivent[tmise]]-=(b-Mises[JoueursSuivent[tmise]])
+                    Pot+=(b-Mises[JoueursSuivent[tmise]])
+                    Mises[JoueursSuivent[tmise]]=b
+                    mise=b
+                    tok=True
+                    miseok=True
+                    return(["R",tmise,mise])  
+                elif b==Banques[JoueursSuivent[tmise]]:
+                  tapisok=input("Tapis ? (O/N)")
+                  if tapisok=="O" :
+                    Pot+=Banques[JoueursSuivent[tmise]]
+                    Banques[JoueursSuivent[tmise]]=0
+                    JTapis.append(JoueursSuivent[tmise])
+                    tok=True
+                    mise=b
+                    miseok=True
+
           elif a=="F":
             JoueursSuivent[tmise]="Fold"
             tok=True
+          elif a=="T":
+            tok=True
+            Pot=Pot+Banques[JoueursSuivent[tmise]]
+            Banques[JoueursSuivent[tmise]]=0
+            JTapis.append(JoueursSuivent[tmise])
         if tmise==nbjs-1:
           tmise=0
         else:
@@ -158,7 +196,6 @@ Banques=[0,0,0,0,0,0,0,0,0]
 Listejoueurs=[]
 Mises = []
 nbjok=False
-JTapis=[]
 listtemp=list(DeJoueurs.keys())                              #Choix + Initialisation du nombre de joueurs
 while not nbjok:
     nbj=input("Nombre de joueurs ? ")
@@ -213,7 +250,7 @@ Tour = 0 #Nombre du tour, permet de définir qui paye la blinde
 
 
 while nbjv>1 :
-  
+  JTapis=[]
   Scores = []
   Valeurs = [] 
   CartesH = []
@@ -330,7 +367,7 @@ while nbjv>1 :
   print(F1,F2,F3,F4,F5)
   print('\n\n')
   
-  for i in range(nbjs):
+  for i in range(len(JoueursSuivent)):
     if Checkmain[JoueursSuivent[i]][2][0]=='QF':
       Listemains[JoueursSuivent[i]]=Checkmain[JoueursSuivent[i]][2]
       Points[JoueursSuivent[i]]=8
@@ -358,7 +395,7 @@ while nbjv>1 :
 
   indl=[]
   m=Points[0]
-  for i in range(nbjs):
+  for i in range(len(JoueursSuivent)):
     if Points[JoueursSuivent[i]]>m:
       m=Points[JoueursSuivent[i]]
       indl=[JoueursSuivent[i]]
@@ -431,8 +468,8 @@ while nbjv>1 :
     print(egal)
     
   i=0
-  while i<nbjs:
-    if Banques[Listejoueurs[i]] <= 0:
+  while i<len(Listejoueurs):
+    if Banques[Listejoueurs] <= 0:
       nbjv-=1
       Listejoueurs.pop(i)
     else:
@@ -452,6 +489,6 @@ while nbjv>1 :
   for i in range (nbj):
     SBanques+=Banques[i]
     
-  print("Débug : Argent en jeu",SBanques)
-  print("Débug : ",JoueursSuivent)
-  print("Débug : Mises ",Mises)
+  print("Débug : Argent en jeu :",SBanques)
+  print("Débug : JoueursSuivent :",JoueursSuivent)
+  print("Débug : Mises :",Mises)
