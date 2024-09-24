@@ -469,7 +469,7 @@ while nbjv>1 :
     
   i=0
   while i<len(Listejoueurs):
-    if Banques[Listejoueurs] <= 0:
+    if Banques[Listejoueurs[i]] <= 0:
       nbjv-=1
       Listejoueurs.pop(i)
     else:
