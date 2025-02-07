@@ -10,3 +10,4 @@ to be finished quickly and to be well optimized, it's just for fun.
 
 MAYBE ONE DAY WE WILL MAKE AN ENGLISH TRANSLATION OF THIS CODE
 BUT ONLY WHEN IT'S FINISHED
+(spoiler alert : it will probably never be finished since we're lazy af XD)
