@@ -15,6 +15,7 @@ def numero(main):
       main2.append(int(i[0]))
   return (main2)
   
+
 def maximum(main):
   main = numero(main)
   main.reverse()
@@ -23,14 +24,8 @@ def maximum(main):
 
 
 def flush(main):  #Vérifie l'existence d'une flush + Quinte flush si existe
-  H = 0
-  lh = []
-  D = 0
-  ld = []
-  S = 0
-  ls = []
-  C = 0
-  lc = []
+  H = D = S = C = 0
+  lh = ld = ls = lc = []
   for i in main:
     if i[1] == 'h':
       H += 1
