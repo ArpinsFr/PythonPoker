@@ -25,7 +25,7 @@ def maximum(main):
 
 def flush(main):  #Vérifie l'existence d'une flush + Quinte flush si existe
   H = D = S = C = 0
-  lh = ld = ls = lc = []
+  lh, ld, ls, lc = []
   for i in main:
     if i[1] == 'h':
       H += 1
